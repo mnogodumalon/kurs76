@@ -582,29 +582,31 @@ async def main():
 
     # 3. Optionen konfigurieren
     # setting_sources=["project"] is REQUIRED to load CLAUDE.md and .claude/skills/ from cwd
+    # NOTE: We use a CUSTOM system prompt instead of the claude_code preset.
+    # The claude_code preset contains instructions like "read files before editing"
+    # which conflict with our performance rules and cause the agent to re-read
+    # files it already has in context, triggering unnecessary rewrites.
     options = ClaudeAgentOptions(
-        system_prompt={
-            "type": "preset",
-            "preset": "claude_code",
-            "append": (
-                "\n\n## ⛔ READ TOOL RESTRICTION\n"
-                "Do NOT use the Read tool on any file that:\n"
-                "- You just wrote or edited (its content is already in your conversation)\n"
-                "- Was provided in a tool response (generate_typescript includes full file contents)\n"
-                "- Is a scaffold file (*Page.tsx, *Dialog.tsx, ConfirmDialog, StatCard, PageShell)\n"
-                "You already have the content. Reading it again wastes 2-3 seconds and leads to unnecessary rewrites.\n"
-                "Only use Read on files you have NEVER seen and that were NOT provided to you.\n\n"
-                "## ⛔ REWRITING FILES IS FORBIDDEN\n"
-                "After a file exists, the ONLY way to change it is Edit (old_string → new_string).\n"
-                "- ❌ FORBIDDEN: Write on existing file (wastes 30-50s to regenerate)\n"
-                "- ❌ FORBIDDEN: Bash cat/heredoc/echo to rewrite files\n"
-                "- ❌ FORBIDDEN: Read a file you just wrote, then Write it again\n"
-                "- ✅ ONLY: Edit tool for targeted changes (2-3s)\n\n"
-                "DashboardOverview.tsx: Write ONCE, then only Edit.\n"
-                "index.css, Layout.tsx: Only Edit, never Write.\n"
-                "CRUD scaffolds: Do not touch.\n"
-            )
-        },
+        system_prompt=(
+            "You are a senior frontend developer building React dashboards.\n"
+            "You work in /home/user/app which is a Vite + React + TypeScript project.\n\n"
+            "## ⛔ READ TOOL RESTRICTION\n"
+            "Do NOT use the Read tool on any file that:\n"
+            "- You just wrote or edited (its content is already in your conversation)\n"
+            "- Was provided in a tool response (generate_typescript includes full file contents)\n"
+            "- Is a scaffold file (*Page.tsx, *Dialog.tsx, ConfirmDialog, StatCard, PageShell)\n"
+            "You already have the content. Reading it again wastes time and leads to unnecessary rewrites.\n"
+            "Only use Read on files you have NEVER seen and that were NOT provided to you.\n\n"
+            "## ⛔ REWRITING FILES IS FORBIDDEN\n"
+            "After a file exists, the ONLY way to change it is Edit (old_string → new_string).\n"
+            "- ❌ FORBIDDEN: Write on existing file (wastes 30-50s to regenerate)\n"
+            "- ❌ FORBIDDEN: Bash cat/heredoc/echo to rewrite files\n"
+            "- ❌ FORBIDDEN: Read a file you just wrote, then Write it again\n"
+            "- ✅ ONLY: Edit tool for targeted changes (2-3s)\n\n"
+            "DashboardOverview.tsx: Write ONCE, then only Edit.\n"
+            "index.css, Layout.tsx: Only Edit, never Write.\n"
+            "CRUD scaffolds: Do not touch.\n"
+        ),
         setting_sources=["project"],  # Required: loads CLAUDE.md and .claude/skills/
         mcp_servers={"dashboard_tools": dashboard_tools_server},
         permission_mode="acceptEdits",

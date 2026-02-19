@@ -1,4 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=IBM+Plex+Sans:wght@300;400;500;600;700&family=IBM+Plex+Mono:wght@400;500&display=swap');
+@import url('https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&display=swap');
 @import "tailwindcss";
 @import "tw-animate-css";
 
@@ -44,47 +44,65 @@
 
 :root {
   --radius: 0.75rem;
-  --background: oklch(0.974 0.004 258);
-  --foreground: oklch(0.18 0.02 258);
+
+  /* Base — warm off-white */
+  --background: oklch(0.978 0.004 260);
+  --foreground: oklch(0.18 0.025 260);
+
+  /* Cards — pure white with subtle shadow */
   --card: oklch(1 0 0);
-  --card-foreground: oklch(0.18 0.02 258);
+  --card-foreground: oklch(0.18 0.025 260);
   --popover: oklch(1 0 0);
-  --popover-foreground: oklch(0.18 0.02 258);
-  --primary: oklch(0.46 0.18 264);
+  --popover-foreground: oklch(0.18 0.025 260);
+
+  /* Primary — deep indigo */
+  --primary: oklch(0.44 0.19 264);
   --primary-foreground: oklch(0.99 0 0);
-  --secondary: oklch(0.95 0.008 258);
-  --secondary-foreground: oklch(0.18 0.02 258);
-  --muted: oklch(0.94 0.006 258);
-  --muted-foreground: oklch(0.52 0.02 258);
-  --accent: oklch(0.93 0.03 264);
-  --accent-foreground: oklch(0.46 0.18 264);
+
+  /* Secondary */
+  --secondary: oklch(0.94 0.01 264);
+  --secondary-foreground: oklch(0.44 0.19 264);
+
+  /* Muted */
+  --muted: oklch(0.945 0.008 260);
+  --muted-foreground: oklch(0.52 0.02 260);
+
+  /* Accent — warm amber */
+  --accent: oklch(0.93 0.04 80);
+  --accent-foreground: oklch(0.35 0.1 60);
+
   --destructive: oklch(0.577 0.245 27.325);
-  --border: oklch(0.9 0.008 258);
-  --input: oklch(0.92 0.006 258);
-  --ring: oklch(0.46 0.18 264 / 0.4);
-  --chart-1: oklch(0.46 0.18 264);
-  --chart-2: oklch(0.62 0.16 210);
-  --chart-3: oklch(0.72 0.14 175);
-  --chart-4: oklch(0.74 0.16 130);
-  --chart-5: oklch(0.65 0.22 30);
-  --sidebar: oklch(0.22 0.04 264);
-  --sidebar-foreground: oklch(0.92 0.01 258);
-  --sidebar-primary: oklch(0.62 0.16 264);
+  --border: oklch(0.9 0.01 260);
+  --input: oklch(0.93 0.008 260);
+  --ring: oklch(0.44 0.19 264);
+
+  /* Charts */
+  --chart-1: oklch(0.44 0.19 264);
+  --chart-2: oklch(0.62 0.18 200);
+  --chart-3: oklch(0.72 0.17 80);
+  --chart-4: oklch(0.55 0.2 310);
+  --chart-5: oklch(0.65 0.19 145);
+
+  /* Sidebar — deep indigo */
+  --sidebar: oklch(0.26 0.06 264);
+  --sidebar-foreground: oklch(0.93 0.01 264);
+  --sidebar-primary: oklch(0.62 0.2 264);
   --sidebar-primary-foreground: oklch(0.99 0 0);
-  --sidebar-accent: oklch(0.30 0.05 264);
-  --sidebar-accent-foreground: oklch(0.92 0.01 258);
-  --sidebar-border: oklch(0.30 0.04 264);
-  --sidebar-ring: oklch(0.62 0.16 264);
+  --sidebar-accent: oklch(0.32 0.07 264);
+  --sidebar-accent-foreground: oklch(0.93 0.01 264);
+  --sidebar-border: oklch(0.35 0.07 264);
+  --sidebar-ring: oklch(0.62 0.2 264);
+
   /* Custom tokens */
-  --font-sans: 'IBM Plex Sans', sans-serif;
-  --font-mono: 'IBM Plex Mono', monospace;
-  --gradient-primary: linear-gradient(135deg, oklch(0.46 0.18 264), oklch(0.52 0.20 280));
-  --gradient-hero: linear-gradient(140deg, oklch(0.22 0.04 264) 0%, oklch(0.32 0.08 270) 100%);
-  --gradient-card: linear-gradient(160deg, oklch(1 0 0) 0%, oklch(0.97 0.01 264) 100%);
-  --shadow-card: 0 1px 3px oklch(0.18 0.02 258 / 0.06), 0 4px 16px oklch(0.18 0.02 258 / 0.06);
-  --shadow-primary: 0 4px 20px oklch(0.46 0.18 264 / 0.3);
+  --gradient-hero: linear-gradient(135deg, oklch(0.44 0.19 264), oklch(0.38 0.2 280));
+  --gradient-card-top: linear-gradient(160deg, oklch(0.48 0.19 264 / 0.08), oklch(0.44 0.19 264 / 0.02));
+  --gradient-amber: linear-gradient(135deg, oklch(0.78 0.17 75), oklch(0.72 0.19 60));
+  --shadow-card: 0 1px 3px oklch(0.18 0.025 260 / 0.08), 0 4px 16px oklch(0.18 0.025 260 / 0.06);
+  --shadow-hero: 0 8px 32px oklch(0.44 0.19 264 / 0.3);
   --transition-smooth: all 0.25s cubic-bezier(0.4, 0, 0.2, 1);
+  --font-sans: 'Plus Jakarta Sans', sans-serif;
 }
+
 
 .dark {
   --background: oklch(0.145 0 0);
@@ -127,7 +145,5 @@
   body {
     @apply bg-background text-foreground;
     font-family: var(--font-sans);
-    font-feature-settings: 'cv11', 'ss01';
-    -webkit-font-smoothing: antialiased;
   }
 }
